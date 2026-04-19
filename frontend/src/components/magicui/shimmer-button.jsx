@@ -32,15 +32,14 @@ const ShimmerButton = React.forwardRef(
         ref={ref}
         {...props}
       >
-        {/* spark container */}
-        <div
+        {/* spark container - Removed as per user request */}
+        {/* <div
           className={cn(
             "-z-10 [radial-gradient(circle_at_50%_0%,#6C5CE7_0%,transparent_70%)] absolute inset-0 overflow-visible [container-type:size]",
           )}
         >
-          {/* spark */}
           <div className="absolute inset-0 h-[100cqh] animate-shimmer-pulse [aspect-ratio:1] [background:conic-gradient(from_0deg,transparent_0_340deg,var(--shimmer-color)_360deg)] [mask:linear-gradient(#fff,transparent)]" />
-        </div>
+        </div> */}
         {children}
 
         {/* Highlight foreground */}

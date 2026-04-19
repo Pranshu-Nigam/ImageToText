@@ -30,6 +30,7 @@ export function Hero() {
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
   const [autoCopy, setAutoCopy] = useState(false);
+  const [pendingAutoCopy, setPendingAutoCopy] = useState(false);
   const [copied, setCopied] = useState(false);
   const isMobile = useIsMobile();
 
@@ -54,6 +55,19 @@ export function Hero() {
     window.addEventListener("paste", handlePaste);
     return () => window.removeEventListener("paste", handlePaste);
   }, []);
+
+  // V2.1 Copy-on-Focus logic: Triggers a pending copy as soon as the user returns to the tab
+  useEffect(() => {
+    const handleFocus = () => {
+      if (pendingAutoCopy && result?.text) {
+        handleCopy(result.text);
+        setPendingAutoCopy(false);
+      }
+    };
+
+    window.addEventListener("focus", handleFocus);
+    return () => window.removeEventListener("focus", handleFocus);
+  }, [pendingAutoCopy, result]);
 
   const handleDrag = (e) => {
     e.preventDefault();
@@ -95,9 +109,14 @@ export function Hero() {
 
     if (response.success) {
       setResult(response.data);
-      // Auto-copy logic
+      // Auto-copy logic with Focus Check
       if (autoCopy && response.data.text) {
-        handleCopy(response.data.text);
+        if (document.hasFocus()) {
+          handleCopy(response.data.text);
+        } else {
+          // Tab is in background, mark as pending for when user returns
+          setPendingAutoCopy(true);
+        }
       }
     } else {
       setError(response.error);
@@ -181,7 +200,10 @@ export function Hero() {
 
       {/* Interactive Uploader Frame */}
       <div
-        className="relative w-full max-w-5xl min-h-[320px] sm:min-h-0 sm:aspect-video rounded-2xl sm:rounded-3xl border border-white/10 overflow-hidden group shadow-2xl transition-all duration-700"
+        className={cn(
+          "relative w-full max-w-5xl rounded-2xl sm:rounded-3xl border border-white/10 overflow-hidden group shadow-2xl transition-all duration-700",
+          result ? "h-auto min-h-[600px] sm:min-h-0 sm:aspect-video" : "min-h-[320px] sm:min-h-0 sm:aspect-video"
+        )}
         style={{
           background: 'rgba(0, 0, 0, 0.35)',
           WebkitBackdropFilter: isMobile ? undefined : 'blur(64px)',
@@ -217,7 +239,7 @@ export function Hero() {
               </div>
               <h3 className="text-xl sm:text-3xl font-black mb-2 tracking-tight">Experience the Magic</h3>
               <p className="text-muted-foreground text-sm sm:text-lg mb-6 sm:mb-10 max-w-md px-2">
-                Drop your image here to see TextLens in action. Supports JPG, PNG, WEBP, and PDF.
+                Drop your image here to see TextLens in action. Supports JPG, PNG, and WEBP.
               </p>
 
               <label className="px-8 py-3 sm:px-10 sm:py-4 bg-primary text-white font-bold rounded-2xl cursor-pointer hover:shadow-[0_0_20px_rgba(108,92,231,0.5)] transition-all active:scale-95">
