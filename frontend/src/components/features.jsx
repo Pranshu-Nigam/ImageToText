@@ -49,32 +49,32 @@ const features = [
 
 export function Features() {
   return (
-    <section id="features" className="py-20 flex flex-col items-center">
-      <div className="text-center mb-16 flex flex-col items-center">
-        <h2 className="text-4xl md:text-5xl font-black mb-4">
+    <section id="features" className="py-12 sm:py-20 flex flex-col items-center">
+      <div className="text-center mb-10 sm:mb-16 flex flex-col items-center px-2">
+        <h2 className="text-2xl sm:text-4xl md:text-5xl font-black mb-3 sm:mb-4">
           <AuroraText>Powerful OCR Capabilities</AuroraText>
         </h2>
-        <p className="text-muted-foreground text-lg max-w-xl font-medium">
+        <p className="text-muted-foreground text-sm sm:text-lg max-w-xl font-medium">
           <AuroraText colors={["#a1a1aa", "#d4d4d8", "#f4f4f5", "#a1a1aa"]} speed={2}>
             Everything you need to extract text from the digital and physical world.
           </AuroraText>
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 w-full">
         {features.map((feature, i) => (
           <div
             key={i}
-            className="group relative p-8 rounded-3xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-primary/50 transition-all duration-300"
+            className="group relative p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-primary/50 transition-all duration-300"
           >
-            <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110", feature.bg)}>
-              <feature.icon className={cn("w-6 h-6", feature.color)} />
+            <div className={cn("w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 transition-transform group-hover:scale-110", feature.bg)}>
+              <feature.icon className={cn("w-5 h-5 sm:w-6 sm:h-6", feature.color)} />
             </div>
-            <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-            <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
+            <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3">{feature.title}</h3>
+            <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">{feature.description}</p>
 
-            {/* Glow Decorative */}
-            <div className={cn("absolute -inset-2 rounded-3xl blur-2xl opacity-0 group-hover:opacity-10 transition-opacity -z-10", feature.bg)} />
+            {/* Glow Decorative — hidden on mobile for perf */}
+            <div className={cn("absolute -inset-2 rounded-3xl blur-2xl opacity-0 group-hover:opacity-10 transition-opacity -z-10 hidden sm:block", feature.bg)} />
           </div>
         ))}
       </div>

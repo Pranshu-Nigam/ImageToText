@@ -7,7 +7,8 @@ export function ModeToggle() {
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="p-2 rounded-xl hover:bg-muted/50 transition-colors border border-white/5 bg-white/5 backdrop-blur-sm"
+      className="p-2 rounded-xl hover:bg-muted/50 transition-colors border border-white/5 bg-white/5"
+      style={{ WebkitBackdropFilter: 'blur(4px)', backdropFilter: 'blur(4px)' }}
       aria-label="Toggle theme"
     >
       {theme === "dark" ? (

@@ -63,6 +63,7 @@
 
 :root {
   --background: #ffffff;
+  --background-rgb: 255, 255, 255;
   --foreground: #0a0a0a;
   --primary: #6c5ce7;
   --primary-foreground: #ffffff;
@@ -81,6 +82,7 @@
 
 .dark {
   --background: #0a0a0a;
+  --background-rgb: 10, 10, 10;
   --foreground: #ffffff;
   --primary: #6c5ce7;
   --primary-foreground: #ffffff;
@@ -119,6 +121,50 @@
 /* Glassmorphism utility */
 .glass {
   background: rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(24px);
   backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Dock blur utility - Brave compatible */
+.dock-blur {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+/* GPU-accelerate animated elements */
+.animate-grid,
+.animate-meteor-effect,
+.animate-border-beam,
+.animate-shimmer-pulse {
+  will-change: transform;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Mobile performance: reduce animation durations & complexity */
+@media (max-width: 767px) {
+  .animate-meteor-effect {
+    animation-duration: 8s !important;
+  }
+  
+  .animate-grid {
+    animation-duration: 25s !important;
+  }
+
+  /* Disable blur-heavy hover effects on mobile */
+  .group:hover .blur-2xl {
+    display: none;
+  }
+}
+
+/* Accessibility: respect user's reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

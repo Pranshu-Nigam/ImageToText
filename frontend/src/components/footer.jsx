@@ -1,7 +1,8 @@
-import { Camera, X, GitBranch, MessageSquare, Home, Pencil, Mail } from "lucide-react";
+import { Camera, X, GitBranch, MessageSquare, Mail } from "lucide-react";
 import RetroGrid from "./magicui/retro-grid";
 import { LightRays } from "./magicui/light-rays";
 import { Dock, DockIcon } from "./magicui/dock";
+import { useIsMobile } from "@/lib/use-mobile";
 
 const Github = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -18,59 +19,51 @@ const Linkedin = ({ className }) => (
 );
 
 export function Footer() {
+  const isMobile = useIsMobile();
+
   return (
-    <footer className="relative w-full border-t border-white/5 bg-background pt-20 pb-10 overflow-hidden flex flex-col items-center">
-      <LightRays className="opacity-100 dark:opacity-50" />
-      <RetroGrid className="opacity-10" angle={45} />
+    <footer className="relative w-full border-t border-white/5 pt-12 sm:pt-20 pb-8 sm:pb-10 overflow-hidden flex flex-col items-center" style={{ backgroundColor: 'rgba(10, 10, 10, 0.7)' }}>
+      {/* LightRays — disabled on mobile for performance */}
+      {!isMobile && <LightRays className="opacity-100 dark:opacity-50" />}
+      <RetroGrid className={isMobile ? "opacity-20" : "opacity-40"} angle={45} />
 
 
-      <div className="w-full max-w-7xl px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12 mb-20 relative z-10">
-        <div className="flex flex-col gap-6 col-span-1 md:col-span-1">
+      <div className="w-full max-w-7xl px-4 sm:px-6 md:px-12 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 mb-12 sm:mb-20 relative z-10">
+        <div className="flex flex-col gap-4 sm:gap-6 col-span-2 sm:col-span-2 md:col-span-1">
           <div className="flex items-center gap-2">
-            <Camera className="w-6 h-6 text-primary" />
-            <span className="text-xl font-black tracking-tighter">TEXTLENS</span>
+            <Camera className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+            <span className="text-lg sm:text-xl font-black tracking-tighter">TEXTLENS</span>
           </div>
-          <p className="text-muted-foreground text-sm leading-relaxed">
+          <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
             Leading the way in precision character recognition. Empowering developers and creators with near-perfect text extraction.
           </p>
-          <Dock className="mx-0 mr-auto mt-2 h-auto px-4" direction="middle">
-            <DockIcon>
-              <a href="#" aria-label="Home" className="flex items-center justify-center">
-                <Home className="w-5 h-5" />
-              </a>
-            </DockIcon>
-            <DockIcon>
-              <a href="#" aria-label="Edit" className="flex items-center justify-center">
-                <Pencil className="w-5 h-5" />
-              </a>
-            </DockIcon>
-            <div className="w-[1px] h-full bg-white/10 mx-2" />
+          <Dock className="mx-0 mr-auto mt-2 h-auto px-4 sm:px-5 gap-3" direction="middle">
             <DockIcon>
               <a href="#" aria-label="GitHub" className="flex items-center justify-center">
-                <Github className="w-5 h-5" />
+                <Github className="w-4 h-4 sm:w-5 sm:h-5" />
               </a>
             </DockIcon>
             <DockIcon>
               <a href="#" aria-label="LinkedIn" className="flex items-center justify-center">
-                <Linkedin className="w-5 h-5" />
+                <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
               </a>
             </DockIcon>
             <DockIcon>
               <a href="#" aria-label="X / Twitter" className="flex items-center justify-center">
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4 sm:w-5 sm:h-5" />
               </a>
             </DockIcon>
             <DockIcon>
               <a href="#" aria-label="Email" className="flex items-center justify-center">
-                <Mail className="w-5 h-5" />
+                <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
               </a>
             </DockIcon>
           </Dock>
         </div>
 
         <div>
-          <h4 className="font-bold mb-6 text-sm uppercase tracking-widest">Product</h4>
-          <ul className="flex flex-col gap-4 text-sm text-muted-foreground">
+          <h4 className="font-bold mb-4 sm:mb-6 text-xs sm:text-sm uppercase tracking-widest">Product</h4>
+          <ul className="flex flex-col gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
             <li><a href="#" className="hover:text-primary transition-colors">Features</a></li>
             <li><a href="#" className="hover:text-primary transition-colors">API Reference</a></li>
             <li><a href="#" className="hover:text-primary transition-colors">Pricing</a></li>
@@ -79,8 +72,8 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="font-bold mb-6 text-sm uppercase tracking-widest">Company</h4>
-          <ul className="flex flex-col gap-4 text-sm text-muted-foreground">
+          <h4 className="font-bold mb-4 sm:mb-6 text-xs sm:text-sm uppercase tracking-widest">Company</h4>
+          <ul className="flex flex-col gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
             <li><a href="#" className="hover:text-primary transition-colors">About Us</a></li>
             <li><a href="#" className="hover:text-primary transition-colors">Careers</a></li>
             <li><a href="#" className="hover:text-primary transition-colors">Privacy Policy</a></li>
@@ -88,24 +81,24 @@ export function Footer() {
           </ul>
         </div>
 
-        <div>
-          <h4 className="font-bold mb-6 text-sm uppercase tracking-widest">Newsletter</h4>
-          <div className="flex flex-col gap-4">
-            <p className="text-sm text-muted-foreground">Stay updated with our latest OCR improvements.</p>
+        <div className="col-span-2 sm:col-span-1">
+          <h4 className="font-bold mb-4 sm:mb-6 text-xs sm:text-sm uppercase tracking-widest">Newsletter</h4>
+          <div className="flex flex-col gap-3 sm:gap-4">
+            <p className="text-xs sm:text-sm text-muted-foreground">Stay updated with our latest OCR improvements.</p>
             <div className="flex gap-2">
               <input
                 type="email"
                 placeholder="Email"
-                className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-primary transition-colors"
+                className="flex-1 min-w-0 bg-white/5 border border-white/10 rounded-xl px-3 sm:px-4 py-2 text-sm focus:outline-none focus:border-primary transition-colors"
               />
-              <button className="px-4 py-2 bg-primary text-white text-sm font-bold rounded-xl">Join</button>
+              <button className="px-4 py-2 bg-primary text-white text-sm font-bold rounded-xl shrink-0">Join</button>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="w-full max-w-7xl px-6 md:px-12 border-t border-white/5 pt-10 text-center relative z-10">
-        <p className="text-xs text-muted-foreground uppercase tracking-[0.3em]">
+      <div className="w-full max-w-7xl px-4 sm:px-6 md:px-12 border-t border-white/5 pt-6 sm:pt-10 text-center relative z-10">
+        <p className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-[0.2em] sm:tracking-[0.3em]">
           © 2026 TEXTLENS AI • ALL RIGHTS RESERVED
         </p>
       </div>
