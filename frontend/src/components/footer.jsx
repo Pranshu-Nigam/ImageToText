@@ -39,22 +39,44 @@ export function Footer() {
           </p>
           <Dock className="mx-0 mr-auto mt-2 h-auto px-4 sm:px-5 gap-3" direction="middle">
             <DockIcon>
-              <a href="#" aria-label="GitHub" className="flex items-center justify-center">
+              <a 
+                href="https://github.com/Pranshu-Nigam" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="GitHub" 
+                className="flex items-center justify-center"
+              >
                 <Github className="w-4 h-4 sm:w-5 sm:h-5" />
               </a>
             </DockIcon>
             <DockIcon>
-              <a href="#" aria-label="LinkedIn" className="flex items-center justify-center">
+              <a 
+                href="https://www.linkedin.com/in/pranshu-nigam-235a0132b" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="LinkedIn" 
+                className="flex items-center justify-center"
+              >
                 <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
               </a>
             </DockIcon>
             <DockIcon>
-              <a href="#" aria-label="X / Twitter" className="flex items-center justify-center">
+              <a 
+                href="https://x.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="X / Twitter" 
+                className="flex items-center justify-center"
+              >
                 <X className="w-4 h-4 sm:w-5 sm:h-5" />
               </a>
             </DockIcon>
             <DockIcon>
-              <a href="#" aria-label="Email" className="flex items-center justify-center">
+              <a 
+                href="mailto:nigam.pranshu05@gmail.com" 
+                aria-label="Email" 
+                className="flex items-center justify-center"
+              >
                 <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
               </a>
             </DockIcon>
