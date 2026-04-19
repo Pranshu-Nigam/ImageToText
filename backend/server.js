@@ -18,23 +18,33 @@ if (!fs.existsSync(uploadsDir)) {
   console.log("📁 Created uploads directory");
 }
 
-// Security & Middleware (TEMPORARILY DISABLED TO FIX CONNECTION ISSUES)
-// app.use(helmet({
-//   crossOriginResourcePolicy: false,
-// }));
+// Security & Middleware
+app.set("trust proxy", 1); // Trust Render's proxy
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+}));
+
+// CORS Configuration
+const allowedOrigin = process.env.FRONTEND_URL || "http://localhost:5173";
 app.use(cors({
-  origin: true, 
+  origin: allowedOrigin,
   credentials: true,
 }));
+
 app.use(express.json());
 
 // Request logging for debugging
 app.use((req, res, next) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+  if (process.env.NODE_ENV !== "production") {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+  }
   next();
 });
 
-// app.use(limiter);
+// Rate limiting for production
+if (process.env.NODE_ENV === "production") {
+  app.use(limiter);
+}
 
 // Health check
 app.get("/api/health", (req, res) => {
