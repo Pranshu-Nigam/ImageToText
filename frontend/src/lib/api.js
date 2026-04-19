@@ -1,6 +1,9 @@
-// In production, this will point to your Render backend URL (e.g., https://textlens-api.onrender.com)
-// In development, it defaults to the Vite proxy (/api)
-const API_BASE_URL = import.meta.env.VITE_API_URL || "/api";
+// In production, we point to the Render backend. In development, we use the local proxy.
+// We ensure the /api prefix is always included if a full URL is provided.
+const BASE = import.meta.env.VITE_API_URL || "";
+const API_BASE_URL = BASE 
+  ? (BASE.endsWith("/") ? `${BASE}api` : `${BASE}/api`) 
+  : "/api";
 
 /**
  * Send an image file to the backend for OCR extraction.
