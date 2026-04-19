@@ -24,12 +24,8 @@ app.use(helmet({
   crossOriginResourcePolicy: false,
 }));
 
-// CORS Configuration
-const allowedOrigin = process.env.FRONTEND_URL || "http://localhost:5173";
-app.use(cors({
-  origin: allowedOrigin,
-  credentials: true,
-}));
+// CORS Configuration (v1 - Simplified for Pro/Dev flexibility)
+app.use(cors());
 
 app.use(express.json());
 
